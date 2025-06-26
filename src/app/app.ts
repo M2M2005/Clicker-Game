@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
+
 export class App {
-  protected title = 'clicker-game';
+  points: number = 0;
+
+  clickButton() {
+    this.points++;
+    console.log('Points:', this.points);
+  }
 }

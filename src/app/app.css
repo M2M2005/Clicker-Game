@@ -1,0 +1,44 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #282c34;
+  color: #fff;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 20px 40px;
+  font-size: 2.5em;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #61dafb;
+  color: #282c34;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px #4fa3d1;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #4fa3d1;
+  transform: translateY(-2px);
+  box-shadow: 0 7px #3f7eab;
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px #3f7eab;
+}
