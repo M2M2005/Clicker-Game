@@ -30,15 +30,12 @@ interface Route {
 export class App implements OnInit {
   totalMetersClimbed: number = 0; // Total des mètres grimpés sur toutes les voies
   currentRouteProgress: number = 0; // Mètres grimpés sur la voie actuelle
-
   climbPuissance: number = 1; // Puissance de grimpe par mouvement
-
   coins: number = 0; // Nombre de coins
 
-  idRouteCurrent: number = 1; // ID de la voie actuelle (commence à 1)
-
-  // Référence à la voie actuellement sélectionnée, initialisée dans ngOnInit
-  currentSelectedRoute !: Route; // Utilisation de l'opérateur "!" pour affirmer qu'elle sera initialisée
+  idRouteCurrent: number = 1; // ID de la voie actuelle
+  currentSelectedRoute !: Route; // Voie actuellement sélectionnée
+  progressPercentage: number = 0; // Pourcentage de progression de la barre de progression
 
   routesList: Route[] = [
     { id: 1, cotation: '5A', metersRequired: 10, coinReward: 10 },
@@ -90,6 +87,7 @@ export class App implements OnInit {
 
   ngOnInit() {
     this.updateCurrentRoute();
+    this.updateProgressBar();
   }
 
   get climbMetersPerClick(): number {
@@ -99,10 +97,12 @@ export class App implements OnInit {
   climbButton() {
     this.currentRouteProgress += this.climbPuissance;
     this.totalMetersClimbed += this.climbPuissance;
+    this.updateProgressBar();
 
     if (this.currentRouteProgress >= this.currentSelectedRoute.metersRequired) {
       this.coins += this.currentSelectedRoute.coinReward;
       this.currentRouteProgress = 0;
+      this.updateProgressBar();
     }
   }
 
@@ -116,6 +116,13 @@ export class App implements OnInit {
 
   updateCurrentRoute() {
     this.currentSelectedRoute = this.routesList[this.idRouteCurrent - 1];
+  }
+
+  updateProgressBar() {
+    const progress = (this.currentRouteProgress / this.currentSelectedRoute.metersRequired) * 100;
+    this.progressPercentage = Math.min(100, Math.max(0, progress)); // Cap between 0 and 100
+    // Set the CSS custom property on the root HTML element
+    document.documentElement.style.setProperty('--progress', `${this.progressPercentage}%`);
   }
 
   difficultyMoins() {

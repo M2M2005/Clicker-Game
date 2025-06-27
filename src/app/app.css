@@ -52,10 +52,9 @@ html, body {
   font-size: 1.4em;
   margin-bottom: 5px;
   display: flex;
-  /* MODIFICATION ICI : Aligne tout le contenu au début (gauche) */
   justify-content: flex-start;
   align-items: center;
-  gap: 5px; /* Ajoute un petit espace entre le texte et la valeur numérique */
+  gap: 5px;
 }
 
 .info-card p:last-child {
@@ -120,32 +119,74 @@ html, body {
 }
 
 .climb-button {
+  position: relative;
   width: 250px;
   height: 250px;
   border-radius: 50%;
-  background-color: #4CAF50;
+  background-color: #388E3C;
   color: #fff;
   font-size: 2.5em;
   font-weight: bold;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   border: 8px solid #388E3C;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.3);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.climb-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: conic-gradient(#4CAF50 var(--progress), transparent var(--progress));
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+  z-index: -1;
 }
 
 .climb-button:hover {
-  background-color: #388E3C;
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .climb-button:active {
   transform: translateY(2px) scale(0.98);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.climb-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+  z-index: 2;
+}
+
+.climb-progress {
+  font-size: 0.7em;
+  margin: 5px;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  color: #555;
+  font-weight: normal;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.climb-progress .value {
+  color: #333;
+  font-weight: bold;
 }
 
 .right-panel {

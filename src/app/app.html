@@ -18,13 +18,17 @@
         <span class="value">{{ currentRouteProgress }} </span>
         /
         <span class="value"> {{ currentSelectedRoute.metersRequired }}</span>
-        m</p>
+        m
+      </p>
     </div>
   </div>
 
   <div class="center-panel">
     <button class="climb-button" (click)="climbButton()">
-      Grimpe !
+      <div class="climb-content">
+        Grimpe !
+        <p class="climb-progress"> <span class="value">{{ currentRouteProgress }}</span> / <span class="value">{{ currentSelectedRoute.metersRequired }}</span> m</p>
+      </div>
     </button>
   </div>
 
