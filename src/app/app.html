@@ -1,7 +1,49 @@
 <div class="game-container">
-  <h1>Clicker Game</h1>
+  <div class="left-panel">
+    <div class="info-card">
+      <h3>Informations de Jeu</h3>
+      <p>Mètres grimpés : <span class="value">{{ totalMetersClimbed }}</span> m</p>
+      <p>Puissance de Grimpe : <span class="value">{{ climbPuissance }}</span></p>
+      <p>Coins : <span class="value">{{ coins }}</span></p>
+    </div>
+    <div class="info-card">
+      <h3>Cotation Actuelle</h3>
+      <div class="difficulty-controls"> <button (click)="difficultyMoins()" [disabled]=" idRouteCurrent <= 1">-</button>
+        <span class="difficulty-display">{{ routesList[idRouteCurrent - 1].cotation }}</span>
+        <button (click)="difficultyPlus()" [disabled]=" idRouteCurrent >= routesList.length">+</button>
+      </div>
+      <p>Objectif : <span class="value">{{ currentSelectedRoute.metersRequired }}</span> m</p>
+      <p>Gain : <span class="value">{{ currentSelectedRoute.coinReward }}</span> C</p>
+      <p>Progression sur voie :
+        <span class="value">{{ currentRouteProgress }} </span>
+        /
+        <span class="value"> {{ currentSelectedRoute.metersRequired }}</span>
+        m</p>
+    </div>
+  </div>
 
-  <p>Points: {{ points }}</p>
+  <div class="center-panel">
+    <button class="climb-button" (click)="climbButton()">
+      Grimpe !
+    </button>
+  </div>
 
-  <button (click)="clickButton()">Clique-moi !</button>
+  <div class="right-panel">
+    <h2>Équipements & Entraînements</h2>
+    <div class="upgrades-list">
+      <div class="upgrade-item" *ngFor="let upgrade of upgrades">
+        <div class="upgrade-info">
+          <span class="upgrade-name">{{ upgrade.name }}</span>
+          <span class="upgrade-cost">{{ upgrade.cost }} C</span>
+          <span class="upgrade-bonus">+{{ upgrade.climbBonus }} Puissance</span>
+        </div>
+        <button
+          (click)="buyUpgrade(upgrade)"
+          [disabled]="coins < upgrade.cost || upgrade.purchased"
+          [class.purchased]="upgrade.purchased">
+          {{ upgrade.purchased ? '✓' : 'Acheter' }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
