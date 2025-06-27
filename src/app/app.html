@@ -2,9 +2,9 @@
   <div class="left-panel">
     <div class="info-card">
       <h3>Informations de Jeu</h3>
-      <p>Mètres grimpés : <span class="value">{{ totalMetersClimbed }}</span> m</p>
+      <p>Mètres grimpés : <span class="value">{{ formatNumber(totalMetersClimbed) }}</span> m</p>
       <p>Puissance de Grimpe : <span class="value">{{ climbPuissance }}</span></p>
-      <p>Coins : <span class="value">{{ coins }}</span></p>
+      <p>Coins : <span class="value">{{ formatNumber(coins) }}</span></p>
     </div>
     <div class="info-card">
       <h3>Cotation Actuelle</h3>
@@ -27,7 +27,7 @@
     <button class="climb-button" (click)="climbButton()">
       <div class="climb-content">
         Grimpe !
-        <p class="climb-progress"> <span class="value">{{ currentRouteProgress }}</span> / <span class="value">{{ currentSelectedRoute.metersRequired }}</span> m</p>
+        <p class="climb-progress"> <span class="value">{{ currentRouteProgress }}</span> / <span class="value">{{ formatNumber(currentSelectedRoute.metersRequired) }}</span> m</p>
       </div>
     </button>
   </div>
@@ -35,17 +35,34 @@
   <div class="right-panel">
     <h2>Équipements & Entraînements</h2>
     <div class="upgrades-list">
-      <div class="upgrade-item" *ngFor="let upgrade of upgrades">
-        <div class="upgrade-info">
-          <span class="upgrade-name">{{ upgrade.name }}</span>
-          <span class="upgrade-cost">{{ upgrade.cost }} C</span>
-          <span class="upgrade-bonus">+{{ upgrade.climbBonus }} Puissance</span>
+      <div *ngFor="let upgrade of upgrades" class="upgrade-item">
+        <div>
+          <div class="current-upgrade-summary">
+            <span class="upgrade-name">{{ upgrade.name }}</span>
+            <ng-container *ngIf="getSubUpgrade(upgrade, upgrade.idCurrentSubUpgrade - 1) as prevSubUpgrade">
+              <span class="current-level-name">({{ prevSubUpgrade.name }})</span>
+              <span class="current-level-bonus">+{{ prevSubUpgrade.climbBonus }} P.</span>
+            </ng-container>
+            <ng-container *ngIf="upgrade.idCurrentSubUpgrade === 0">
+              <span class="current-level-name">(Aucun)</span>
+            </ng-container>
+          </div>
+
+          <div class="upgrade-info" *ngIf="getSubUpgrade(upgrade, upgrade.idCurrentSubUpgrade) as nextSubUpgrade">
+            <span class="upgrade-detail-label">Amélioration:</span>
+            <span class="upgrade-name-next">{{ nextSubUpgrade.name }}</span>
+            <span class="upgrade-bonus-next">+{{ nextSubUpgrade.climbBonus }} P.</span>
+            <span class="upgrade-cost-next">({{ formatNumber(nextSubUpgrade.cost) }} C)</span>
+          </div>
         </div>
+
         <button
           (click)="buyUpgrade(upgrade)"
-          [disabled]="coins < upgrade.cost || upgrade.purchased"
-          [class.purchased]="upgrade.purchased">
-          {{ upgrade.purchased ? '✓' : 'Acheter' }}
+          [disabled]="coins < (getSubUpgrade(upgrade, upgrade.idCurrentSubUpgrade)?.cost || 0) || upgrade.idCurrentSubUpgrade >= upgrade.subUpgrades.length"
+          [class.purchased]="upgrade.idCurrentSubUpgrade >= upgrade.subUpgrades.length"
+        >
+          <ng-container *ngIf="upgrade.idCurrentSubUpgrade < upgrade.subUpgrades.length">Améliorer</ng-container>
+          <ng-container *ngIf="upgrade.idCurrentSubUpgrade >= upgrade.subUpgrades.length">Niveau Max</ng-container>
         </button>
       </div>
     </div>

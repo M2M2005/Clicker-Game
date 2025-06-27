@@ -30,14 +30,17 @@ html, body {
   gap: 20px;
 }
 
-.left-panel {
-}
-
 .info-card {
   background-color: #5A5A5A;
   padding: 15px 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .info-card h3 {
@@ -84,16 +87,19 @@ html, body {
   font-size: 1.2em;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .difficulty-controls button:hover {
   background-color: #4fa3d1;
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .difficulty-controls button:active {
   transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .difficulty-controls button:disabled {
@@ -101,6 +107,7 @@ html, body {
   color: #999;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .difficulty-display {
@@ -123,7 +130,7 @@ html, body {
   width: 250px;
   height: 250px;
   border-radius: 50%;
-  background-color: #388E3C;
+  background-color: #4CAF50;
   color: #fff;
   font-size: 2.5em;
   font-weight: bold;
@@ -148,19 +155,20 @@ html, body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-image: conic-gradient(#4CAF50 var(--progress), transparent var(--progress));
-  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+  background-image: conic-gradient(#66BB6A var(--progress), transparent var(--progress));
   z-index: -1;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .climb-button:hover {
+  background-color: #388E3C;
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .climb-button:active {
   transform: translateY(2px) scale(0.98);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .climb-content {
@@ -174,14 +182,14 @@ html, body {
 
 .climb-progress {
   font-size: 0.7em;
-  margin: 5px;
+  margin-top: 5px;
   padding: 4px 8px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 4px;
   color: #555;
   font-weight: normal;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 .climb-progress .value {
@@ -195,69 +203,126 @@ html, body {
 }
 
 .right-panel h2 {
-  font-size: 2em;
+  font-size: 1.6em; /* Reduced from 1.8em */
   color: #FFD700;
   text-align: center;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Softer shadow */
+  letter-spacing: 0.02em; /* Reduced spacing */
 }
 
 .upgrades-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px; /* Reduced gap between items */
   overflow-y: auto;
-  padding-right: 5px;
+  padding-right: 6px; /* Reduced padding for scrollbar */
   flex-grow: 1;
 }
 
 .upgrade-item {
   background-color: #5A5A5A;
-  border-radius: 8px;
-  padding: 10px 15px;
+  border-radius: 6px; /* Reduced border-radius */
+  padding: 8px 12px; /* Reduced padding */
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Reduced shadow */
   border: 1px solid #777;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  flex-wrap: nowrap; /* Prefer no wrapping, will use ellipsis */
+  gap: 8px; /* Reduced gap between main sections */
+}
+
+.upgrade-item:hover {
+  transform: translateY(-1px); /* Reduced lift on hover */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Reduced shadow on hover */
+}
+
+.current-upgrade-summary {
+  display: flex;
+  align-items: center;
+  gap: 3px; /* Reduced gap */
   flex-shrink: 0;
+  font-size: 0.8em; /* Reduced font size */
+  color: #E0E0E0;
+}
+
+.current-upgrade-summary .upgrade-name {
+  font-weight: bold;
+  color: #61dafb;
+}
+
+.current-upgrade-summary .current-level-name {
+  color: #B0B0B0;
+  font-style: italic;
+}
+
+.current-upgrade-summary .current-level-bonus {
+  font-weight: bold;
+  color: #4CAF50;
 }
 
 .upgrade-info {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   flex-grow: 1;
-  margin-right: 10px;
+  gap: 3px; /* Reduced gap */
+  font-size: 0.8em; /* Reduced font size */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0; /* Allow content to shrink */
 }
 
-.upgrade-name {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #61dafb;
-  margin-bottom: 2px;
-}
-
-.upgrade-cost {
-  font-size: 1em;
-  color: #FFD700;
-  margin-right: 5px;
-}
-
-.upgrade-bonus {
-  font-size: 0.9em;
+.upgrade-detail-label {
   color: #B0B0B0;
+  font-style: italic;
+}
+
+.upgrade-name-next {
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.upgrade-bonus-next {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.upgrade-cost-next {
+  color: #FFD700;
 }
 
 .upgrade-item button {
-  padding: 8px 12px;
-  font-size: 1em;
+  padding: 5px 10px; /* Reduced padding */
+  font-size: 0.8em; /* Reduced font size */
   width: auto;
-  min-width: 80px;
+  min-width: 60px; /* Reduced min-width */
   margin-top: 0;
-  box-shadow: none;
-  border-radius: 6px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+  border-radius: 5px; /* Reduced border-radius */
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+.upgrade-item button:hover {
+  background-color: #388E3C;
+  transform: translateY(0px); /* Less dramatic hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-item button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .upgrade-item button:disabled {
@@ -266,33 +331,37 @@ html, body {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  opacity: 0.5; /* More transparent when disabled */
 }
 
 .upgrade-item button.purchased {
   background-color: #2E8B57;
   color: #fff;
   cursor: default;
-  font-size: 1.5em;
+  font-size: 0.9em; /* Reduced font size */
+  opacity: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .upgrade-item button.purchased:hover {
   background-color: #2E8B57;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .upgrades-list::-webkit-scrollbar {
-  width: 8px;
+  width: 6px; /* Reduced scrollbar width */
 }
 
 .upgrades-list::-webkit-scrollbar-track {
-  background: #36454F;
+  background: #2A363F;
   border-radius: 10px;
 }
 
 .upgrades-list::-webkit-scrollbar-thumb {
   background: #61dafb;
   border-radius: 10px;
+  border: 1px solid #2A363F; /* Reduced border */
 }
 
 .upgrades-list::-webkit-scrollbar-thumb:hover {
