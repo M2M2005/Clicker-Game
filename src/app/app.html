@@ -27,7 +27,7 @@
     <button class="climb-button" (click)="climbButton()">
       <div class="climb-content">
         Grimpe !
-        <p class="climb-progress"> <span class="value">{{ currentRouteProgress }}</span> / <span class="value">{{ formatNumber(currentSelectedRoute.metersRequired) }}</span> m</p>
+        <p class="climb-progress"><span class="value">{{ formatNumber(currentRouteProgress) }}</span> / <span class="value">{{ formatNumber(currentSelectedRoute.metersRequired) }}</span> m</p>
       </div>
     </button>
   </div>
