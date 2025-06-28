@@ -12,8 +12,8 @@
         <span class="difficulty-display">{{ routesList[idRouteCurrent - 1].cotation }}</span>
         <button (click)="difficultyPlus()" [disabled]=" idRouteCurrent >= routesList.length">+</button>
       </div>
-      <p>Objectif : <span class="value">{{ currentSelectedRoute.metersRequired }}</span> m</p>
-      <p>Gain : <span class="value">{{ currentSelectedRoute.coinReward }}</span> C</p>
+      <p>Objectif : <span class="value">{{ formatNumber(currentSelectedRoute.metersRequired) }}</span> m</p>
+      <p>Gain : <span class="value">{{ formatNumber(currentSelectedRoute.coinReward) }}</span> C</p>
       <p>Progression sur voie :
         <span class="value">{{ currentRouteProgress }} </span>
         /
@@ -62,7 +62,7 @@
           || upgrade.idCurrentSubUpgrade >= upgrade.subUpgrades.length
           || climbPuissance + (getSubUpgrade(upgrade, upgrade.idCurrentSubUpgrade)?.climbBonus || 0) <= 0"
           [class.purchased]="upgrade.idCurrentSubUpgrade >= upgrade.subUpgrades.length"
-        >y
+        >
           <ng-container *ngIf="upgrade.idCurrentSubUpgrade < upgrade.subUpgrades.length">Améliorer</ng-container>
           <ng-container *ngIf="upgrade.idCurrentSubUpgrade >= upgrade.subUpgrades.length">Niveau Max</ng-container>
         </button>
