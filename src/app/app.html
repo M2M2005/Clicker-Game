@@ -41,7 +41,7 @@
             <span class="upgrade-name">{{ upgrade.name }}</span>
             <ng-container *ngIf="getSubUpgrade(upgrade, upgrade.idCurrentSubUpgrade - 1) as prevSubUpgrade">
               <span class="current-level-name">({{ prevSubUpgrade.name }})</span>
-              <span class="current-level-bonus">+{{ prevSubUpgrade.climbBonus }} P.</span>
+              <span class="current-level-bonus">+{{ prevSubUpgrade.climbBonus }} P</span>
             </ng-container>
             <ng-container *ngIf="upgrade.idCurrentSubUpgrade === 0">
               <span class="current-level-name">(Aucun)</span>
