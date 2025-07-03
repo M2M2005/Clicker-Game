@@ -30,11 +30,12 @@ interface Route {
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
+
 export class App implements OnInit {
   totalMetersClimbed: number = 0;
   currentRouteProgress: number = 0;
   climbPuissance: number = 1;
-  coins: number = 1000000000000000;
+  coins: number = 0;
 
   idRouteCurrent: number = 1;
   currentSelectedRoute!: Route;

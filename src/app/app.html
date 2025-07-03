@@ -54,6 +54,18 @@
             <span class="upgrade-bonus-next">+{{ nextSubUpgrade.climbBonus }} P.</span>
             <span class="upgrade-cost-next">({{ formatNumber(nextSubUpgrade.cost) }} C)</span>
           </div>
+
+          <div class="progress-bar-container">
+            <div class="progress-bar-wrapper">
+              <div class="progress-bar-inner" [style.width.%]="(upgrade.idCurrentSubUpgrade / upgrade.subUpgrades.length) * 100"></div>
+              <div class="progress-markers">
+                <ng-container *ngFor="let marker of [].constructor(upgrade.subUpgrades.length); let i = index">
+                  <div class="marker" [style.left.%]="(i / upgrade.subUpgrades.length) * 100"></div>
+                </ng-container>
+              </div>
+            </div>
+            <span class="progress-text">{{ upgrade.idCurrentSubUpgrade }} / {{ upgrade.subUpgrades.length }}</span>
+          </div>
         </div>
 
         <button
